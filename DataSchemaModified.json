@@ -1,0 +1,165 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Detailed Data Schema",
+  "description": "Schema defining user details, water information, hydration and safety recommendations, and vocal training.",
+  "type": "object",
+  "properties": {
+    "User": {
+      "description": "User information",
+      "type": "object",
+      "properties": {
+        "name": {
+          "description": "User's name, consisting of only letters and a length between 3 and 30 characters",
+          "type": "string",
+          "pattern": "^[A-Za-z]{3,30}$",
+          "minLength": 3,
+          "maxLength": 30
+        },
+        "email": {
+          "description": "User's email, following standard email format",
+          "type": "string",
+          "format": "email"
+          "pattern": "^[\\w\\.-]+@[\\w\\.-]+\\.\\w{2,4}$"
+        },
+        "jobType": {
+          "description": "User's job type, consisting of letters and spaces only",
+          "type": "string",
+          "pattern": "^[A-Za-z\\s]+$",
+          "minLength": "3",
+          "maxLength": 50
+        },
+        "hydrationRecommendation": {
+          "description": "Hydration recommendations for the user",
+          "type": "array",
+          "items": { "$ref": "#/definitions/HydrationRecommendation" }
+        },
+        "workSafety": {
+          "description": "Work safety recommendations for the user",
+          "type": "object",
+          "$ref": "#/definitions/WorkSafety"
+        },
+        "vocalExercises": {
+          "description": "Vocal exercises assigned to the user",
+          "type": "array",
+          "items": { "$ref": "#/definitions/VocalExercises" }
+        },
+        "skillDevelopment": {
+          "description": "User's skill development goals and progress",
+          "type": "array",
+          "items": { "$ref": "#/definitions/SkillDevelopment" }
+        }
+      },
+      "required": ["name", "email", "jobType"]
+    }
+  },
+  "definitions": {
+    "Water": {
+      "description": "Water information",
+      "type": "object",
+      "properties": {
+        "quality": {
+          "description": "Water quality",
+          "type": 123
+        },
+        "type": {
+          "description": "Type of water",
+          "type": "string"
+        },
+        "waterSource": {
+          "description": "The source of the water",
+          "type": "object",
+          "$ref": "#/definitions/WaterSource"
+        }
+      }
+    },
+    "WaterSource": {
+      "description": "Information about the water source",
+      "type": "object",
+      "properties": {
+        "name": {
+          "description": "Name of the water source",
+          "type": "string"
+        },
+        "location": {
+          "description": "Location of the water source",
+          "type": "string"
+        },
+        "availability": {
+          "description": "Availability of the water source",
+          "type": "string"
+        }
+      }
+    },
+    "HydrationRecommendation": {
+      "description": "Recommendations on how much water to drink and when",
+      "type": "object",
+      "properties": {
+        "amount": {
+          "description": "Amount of water to drink",
+          "type": "number",
+          "minimum": 0
+        },
+        "time": {
+          "description": "Time to drink the water in HH:MM format",
+          "type": "string",
+          "pattern": "^\\d{2}:\\d{2}$"
+        },
+        "water": {
+          "description": "Water quality and type affecting the recommendation",
+          "type": "object",
+          "$ref": "#/definitions/Water"
+        }
+      }
+    },
+    "WorkSafety": {
+      "description": "Work safety guidelines for the user",
+      "type": "object",
+      "properties": {
+        "posture": {
+          "description": "Recommended posture for safety",
+          "type": "string"
+        },
+        "breathingTechnique": {
+          "description": "Recommended breathing techniques for safety",
+          "type": "string"
+        },
+        "water": {
+          "description": "Water influence on safety recommendations",
+          "type": "object",
+          "$ref": "#/definitions/Water"
+        }
+      }
+    },
+    "VocalExercises": {
+      "description": "Exercises for improving vocal skills",
+      "type": "object",
+      "properties": {
+        "name": {
+          "description": "Name of the exercise",
+          "type": "string"
+        },
+        "duration": {
+          "description": "Duration of the exercise",
+          "type": "number",
+          "minimum": 0
+        }
+      }
+    },
+    "SkillDevelopment": {
+      "description": "Goals and progress of user's skill development",
+      "type": "object",
+      "properties": {
+        "goal": {
+          "description": "The skill development goal",
+          "type": "string"
+        },
+        "progress": {
+          "description": "Progress towards the goal",
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        }
+      }
+    }
+  }
+}
