@@ -18,14 +18,14 @@
         "email": {
           "description": "User's email, following standard email format",
           "type": "string",
-          "format": "email",
+          "format": "email"
           "pattern": "^[\\w\\.-]+@[\\w\\.-]+\\.\\w{2,4}$"
         },
         "jobType": {
           "description": "User's job type, consisting of letters and spaces only",
           "type": "string",
           "pattern": "^[A-Za-z\\s]+$",
-          "minLength": 3,
+          "minLength": "3",  // Помилка: minLength має бути числом, а не рядком
           "maxLength": 50
         },
         "hydrationRecommendation": {
@@ -59,7 +59,7 @@
       "properties": {
         "quality": {
           "description": "Water quality",
-          "type": "string"
+          "type": 123 // Помилка: type має бути рядком, а не числом
         },
         "type": {
           "description": "Type of water",
